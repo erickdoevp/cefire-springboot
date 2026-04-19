@@ -4,6 +4,7 @@ import com.cefire.cefiretlx.role.domain.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +17,15 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  private String firstLastName;
+  private String secondLastName;
+  private LocalDate createdAt;
   private String username;
+  private String phoneNumber;
   private String email;
   private String password;
+  private LocalDate lastSignInAt;
+  private String avatarImgUrl;
 
   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(

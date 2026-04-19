@@ -1,6 +1,5 @@
 package com.cefire.cefiretlx.security.service;
 
-
 import com.cefire.cefiretlx.role.domain.Role;
 import com.cefire.cefiretlx.user.domain.User;
 import com.cefire.cefiretlx.user.repository.UserRepository;
