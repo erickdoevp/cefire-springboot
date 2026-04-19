@@ -42,7 +42,9 @@ public class DataLoader implements CommandLineRunner {
 
     if(userRepository.findByUsername("admin").isEmpty()){
       User admin = new User();
-      admin.setName("Administrador");
+      admin.setName("Erick");
+      admin.setFirstLastName("Cruz");
+      admin.setSecondLastName("Padilla");
       admin.setUsername("admin");
       admin.setEmail("admin@example.com");
       admin.setPassword(passwordEncoder.encode("admin1234"));
@@ -60,6 +62,8 @@ public class DataLoader implements CommandLineRunner {
     if (userRepository.findByUsername("user").isEmpty()) {
       User regularUser = new User();
       regularUser.setName("Usuario Normal");
+      regularUser.setFirstLastName("Apellido");
+      regularUser.setSecondLastName("Apellido 2");
       regularUser.setUsername("user");
       regularUser.setEmail("user@example.com");
       regularUser.setPassword(passwordEncoder.encode("123456"));
