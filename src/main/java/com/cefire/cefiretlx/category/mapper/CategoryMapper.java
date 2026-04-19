@@ -1,6 +1,7 @@
 package com.cefire.cefiretlx.category.mapper;
 
 import com.cefire.cefiretlx.category.domain.Category;
+import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
 import com.cefire.cefiretlx.category.dto.CategoryRequestDto;
 import com.cefire.cefiretlx.category.dto.CategoryResponseDto;
 import org.mapstruct.Mapper;
@@ -14,6 +15,8 @@ public interface CategoryMapper {
   Category toEntity(CategoryRequestDto categoryRequestDto);
 
   CategoryResponseDto toResponseDto(Category category);
+
+  CategoryDetailResponseDto toDetailResponseDto(Category category);
 
   // Método para actualizar una entidad existente
   @Mapping(target = "id", ignore = true)

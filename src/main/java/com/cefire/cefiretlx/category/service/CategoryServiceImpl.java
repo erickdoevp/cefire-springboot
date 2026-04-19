@@ -1,6 +1,7 @@
 package com.cefire.cefiretlx.category.service;
 
 import com.cefire.cefiretlx.category.domain.Category;
+import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
 import com.cefire.cefiretlx.category.dto.CategoryRequestDto;
 import com.cefire.cefiretlx.category.dto.CategoryResponseDto;
 import com.cefire.cefiretlx.category.mapper.CategoryMapper;
@@ -37,11 +38,11 @@ public class CategoryServiceImpl implements ICategoryService {
 
   @Override
   @Transactional(readOnly = true)
-  public CategoryResponseDto findById(Long id) {
+  public CategoryDetailResponseDto findById(Long id) {
     Category category = categoryRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el id " + id));
 
-    return categoryMapper.toResponseDto(category);
+    return categoryMapper.toDetailResponseDto(category);
   }
 
   @Override
