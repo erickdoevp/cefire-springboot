@@ -8,6 +8,7 @@ import com.cefire.cefiretlx.category.repository.CategoryRepository;
 import com.cefire.cefiretlx.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CategoryServiceImpl implements ICategoryService {
   private final CategoryMapper categoryMapper;
 
   @Override
+  @Transactional
   public CategoryResponseDto save(CategoryRequestDto categoryRequestDto) {
     Category categoryToSave = categoryMapper.toEntity(categoryRequestDto);
     Category categorySaved = categoryRepository.save(categoryToSave);
@@ -26,6 +28,7 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public List<CategoryResponseDto> findAll() {
     return categoryRepository.findAll()
         .stream()
@@ -33,6 +36,7 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public CategoryResponseDto findById(Long id) {
     Category category = categoryRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el id " + id));
@@ -41,12 +45,14 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @Transactional(readOnly = true)
   public Category findEntityById(Long id) {
     return categoryRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el id " + id));
   }
 
   @Override
+  @Transactional
   public CategoryResponseDto update(Long id, CategoryRequestDto categoryRequestDto) {
     Category categoryToUpdate = categoryRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con el id " + id));
@@ -59,10 +65,12 @@ public class CategoryServiceImpl implements ICategoryService {
   }
 
   @Override
+  @Transactional
   public void deleteCategory(Long id) {
     if(!categoryRepository.existsById(id)) {
       throw new ResourceNotFoundException("Categoría no encontrada con el id " + id);
     };
     categoryRepository.deleteById(id);
   }
+
 }
