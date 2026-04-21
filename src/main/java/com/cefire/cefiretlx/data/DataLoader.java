@@ -40,6 +40,20 @@ public class DataLoader implements CommandLineRunner {
           return roleRepository.save(newRole);
         });
 
+    roleRepository.findByName("ROLE_PHYSIOTHERAPIST")
+        .orElseGet(() -> {
+          Role newRole = new Role();
+          newRole.setName("ROLE_PHYSIOTHERAPIST");
+          return roleRepository.save(newRole);
+        });
+
+      roleRepository.findByName("ROLE_EDITOR")
+        .orElseGet(() -> {
+          Role newRole = new Role();
+          newRole.setName("ROLE_EDITOR");
+          return roleRepository.save(newRole);
+        });
+
     if(userRepository.findByUsername("admin").isEmpty()){
       User admin = new User();
       admin.setName("Erick");

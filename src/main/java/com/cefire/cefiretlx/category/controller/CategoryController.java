@@ -4,6 +4,7 @@ import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
 import com.cefire.cefiretlx.category.dto.CategoryRequestDto;
 import com.cefire.cefiretlx.category.dto.CategoryResponseDto;
 import com.cefire.cefiretlx.category.service.ICategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +34,13 @@ public class CategoryController {
 
   @PostMapping
   @PreAuthorize("hasAnyRole('ADMIN','USER')")
-  ResponseEntity<CategoryResponseDto> saveCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+  ResponseEntity<CategoryResponseDto> saveCategory(@Valid @RequestBody CategoryRequestDto categoryRequestDto) {
     return new ResponseEntity<>(categoryService.save(categoryRequestDto), HttpStatus.CREATED);
   };
 
   @PutMapping("/{id}")
   @PreAuthorize("hasAnyRole('ADMIN','USER')")
-  ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
+  ResponseEntity<CategoryResponseDto> updateCategory(@Valid @PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
     return ResponseEntity.ok(categoryService.update(id,categoryRequestDto));
   };
 

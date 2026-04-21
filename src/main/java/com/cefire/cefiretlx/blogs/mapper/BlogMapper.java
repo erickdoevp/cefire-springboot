@@ -6,9 +6,10 @@ import com.cefire.cefiretlx.blogs.dto.BlogDetailResponseDto;
 import com.cefire.cefiretlx.blogs.dto.BlogSummaryResponseDto;
 import com.cefire.cefiretlx.blogs.dto.BlogUpdateRequestDto;
 import com.cefire.cefiretlx.category.mapper.CategoryMapper;
+import com.cefire.cefiretlx.user.mapper.UserMapper;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring", uses = CategoryMapper.class)
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class, UserMapper.class})
 public interface BlogMapper {
 
   @Mapping(target = "id", ignore = true)

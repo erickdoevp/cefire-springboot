@@ -3,8 +3,10 @@ package com.cefire.cefiretlx.user.mapper;
 import com.cefire.cefiretlx.role.domain.Role;
 import com.cefire.cefiretlx.role.repository.RoleRepository;
 import com.cefire.cefiretlx.user.domain.User;
+import com.cefire.cefiretlx.user.dto.UserDetailResponseDto;
+import com.cefire.cefiretlx.user.dto.UserPageResponseDto;
 import com.cefire.cefiretlx.user.dto.UserRequestDto;
-import com.cefire.cefiretlx.user.dto.UserResponseDto;
+import com.cefire.cefiretlx.user.dto.UserSummaryResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -33,9 +35,17 @@ public abstract class UserMapper {
   public abstract User toEntity(UserRequestDto dto);
 
   @Mapping(target = "displayName", expression = "java(user.getDisplayName())")
-  public abstract UserResponseDto toResponseDto(User user);
+  public abstract UserDetailResponseDto toResponseDto(User user);
 
-  public abstract List<UserResponseDto> toResponseDtoList(List<User> users);
+  public abstract List<UserDetailResponseDto> toResponseDtoList(List<User> users);
+
+  @Mapping(target = "displayName", expression = "java(user.getDisplayName())")
+  public abstract UserSummaryResponseDto toSummaryResponseDto(User user);
+
+  public abstract List<UserSummaryResponseDto> toSummaryResponseDtoList(List<User> users);
+
+  @Mapping(target = "displayName", expression = "java(user.getDisplayName())")
+  public abstract UserPageResponseDto toPageResponseDto(User user);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "password", ignore = true)

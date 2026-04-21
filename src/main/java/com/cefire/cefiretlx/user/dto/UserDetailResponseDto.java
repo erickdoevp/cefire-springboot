@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
-public class UserResponseDto {
+public class UserDetailResponseDto {
 
   private UUID id;
   private String name;

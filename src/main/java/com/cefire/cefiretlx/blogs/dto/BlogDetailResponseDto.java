@@ -2,7 +2,7 @@ package com.cefire.cefiretlx.blogs.dto;
 
 import com.cefire.cefiretlx.blogs.domain.BlogStatus;
 import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
-import com.cefire.cefiretlx.user.dto.UserResponseDto;
+import com.cefire.cefiretlx.user.dto.UserSummaryResponseDto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -23,7 +23,7 @@ public class BlogDetailResponseDto {
   private BlogStatus status;
   private List<String> tags;
   private CategoryDetailResponseDto category;
-  private UserResponseDto author;
+  private UserSummaryResponseDto author;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 
