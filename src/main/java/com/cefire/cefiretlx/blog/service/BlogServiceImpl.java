@@ -63,8 +63,8 @@ public class BlogServiceImpl implements IBlogService {
     blog.setCategory(category);
     blog.setAuthor(author);
 
-    if (dto.getTagIds() != null && !dto.getTagIds().isEmpty()) {
-      List<Tag> tags = dto.getTagIds().stream().map(tagService::findEntityById).toList();
+    if (dto.getTags() != null && !dto.getTags().isEmpty()) {
+      List<Tag> tags = dto.getTags().stream().map(tagService::findOrCreateByName).toList();
       blog.setTags(tags);
     }
 
@@ -141,8 +141,8 @@ public class BlogServiceImpl implements IBlogService {
       blog.setCategory(categoryService.findEntityById(dto.getCategoryId()));
     }
 
-    if (dto.getTagIds() != null) {
-      List<Tag> tags = dto.getTagIds().stream().map(tagService::findEntityById).toList();
+    if (dto.getTags() != null) {
+      List<Tag> tags = dto.getTags().stream().map(tagService::findOrCreateByName).toList();
       blog.setTags(tags);
     }
 

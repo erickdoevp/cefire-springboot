@@ -12,6 +12,7 @@ public interface ITagService {
   List<TagResponseDto> findAll();
   TagDetailResponseDto findById(Long id);
   Tag findEntityById(Long id);
+  Tag findOrCreateByName(String name);
   TagResponseDto update(Long id, TagRequestDto tagRequestDto);
   void deleteTag(Long id);
 }

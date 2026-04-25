@@ -46,6 +46,6 @@ public class BlogCreateRequestDto {
   @NotNull(message = "El autor no debe ser nulo.")
   private UUID authorId;
 
-  private List<Long> tagIds;
+  private List<String> tags;
 
 }

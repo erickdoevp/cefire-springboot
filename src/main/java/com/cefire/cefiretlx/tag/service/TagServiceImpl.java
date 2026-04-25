@@ -53,6 +53,16 @@ public class TagServiceImpl implements ITagService {
 
   @Override
   @Transactional
+  public Tag findOrCreateByName(String name) {
+    return tagRepository.findByName(name).orElseGet(() -> {
+      Tag newTag = new Tag();
+      newTag.setName(name);
+      return tagRepository.save(newTag);
+    });
+  }
+
+  @Override
+  @Transactional
   public TagResponseDto update(Long id, TagRequestDto tagRequestDto) {
     Tag tagToUpdate = tagRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Tag no encontrado con el id " + id));

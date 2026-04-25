@@ -22,6 +22,6 @@ public class BlogUpdateRequestDto {
 
   private BlogStatus status;
   private Long categoryId;
-  private List<Long> tagIds;
+  private List<String> tags;
 
 }
