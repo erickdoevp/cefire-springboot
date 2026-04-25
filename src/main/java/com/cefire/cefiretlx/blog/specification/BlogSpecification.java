@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BlogSpecification {
 
@@ -17,6 +18,7 @@ public class BlogSpecification {
       String title,
       BlogStatus status,
       Long categoryId,
+      UUID authorId,
       LocalDateTime updatedFrom,
       LocalDateTime updatedTo
   ) {
@@ -33,6 +35,10 @@ public class BlogSpecification {
 
       if (categoryId != null) {
         predicates.add(cb.equal(root.get("category").get("id"), categoryId));
+      }
+
+      if (authorId != null) {
+        predicates.add(cb.equal(root.get("author").get("id"), authorId));
       }
 
       if (updatedFrom != null) {

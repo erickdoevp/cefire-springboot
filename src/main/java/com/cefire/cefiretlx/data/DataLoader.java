@@ -40,14 +40,14 @@ public class DataLoader implements CommandLineRunner {
           return roleRepository.save(newRole);
         });
 
-    roleRepository.findByName("ROLE_PHYSIOTHERAPIST")
+    Role physiotherapistRole = roleRepository.findByName("ROLE_PHYSIOTHERAPIST")
         .orElseGet(() -> {
           Role newRole = new Role();
           newRole.setName("ROLE_PHYSIOTHERAPIST");
           return roleRepository.save(newRole);
         });
 
-      roleRepository.findByName("ROLE_EDITOR")
+    Role roleEditor = roleRepository.findByName("ROLE_EDITOR")
         .orElseGet(() -> {
           Role newRole = new Role();
           newRole.setName("ROLE_EDITOR");
@@ -66,6 +66,8 @@ public class DataLoader implements CommandLineRunner {
       Set<Role> adminRoles = new HashSet<>();
       adminRoles.add(adminRole);
       adminRoles.add(userRole);
+      adminRoles.add(physiotherapistRole);
+      adminRoles.add(roleEditor);
 
       admin.setRoles(adminRoles);
 

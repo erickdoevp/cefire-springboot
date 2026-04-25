@@ -44,6 +44,18 @@ public class GlobalExceptionHandler {
 
   };
 
+  @ExceptionHandler(ForbiddenException.class)
+  public ResponseEntity<Object> handleForbiddenException(ForbiddenException ex) {
+
+    Map<String, Object> body = new HashMap<>();
+    body.put("status", HttpStatus.FORBIDDEN.value());
+    body.put("error", "Forbidden");
+    body.put("message", ex.getMessage());
+
+    return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+
+  };
+
   // Versión súper simple para producción sin detalles específicos de la DB
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ResponseEntity<Map<String, String>> handleDataIntegrityViolationSimple(DataIntegrityViolationException ex) {

@@ -21,25 +21,26 @@ public class CategoryController {
   private final ICategoryService categoryService;
 
   @GetMapping
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<List<CategoryResponseDto>> getAllCategories() {
     List<CategoryResponseDto> categories = categoryService.findAll();
     return ResponseEntity.ok(categories);
   };
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<CategoryDetailResponseDto> findCategoryDetailDyId(@PathVariable Long id) {
     return ResponseEntity.ok(categoryService.findById(id));
   };
 
   @PostMapping
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<CategoryResponseDto> saveCategory(@Valid @RequestBody CategoryRequestDto categoryRequestDto) {
     return new ResponseEntity<>(categoryService.save(categoryRequestDto), HttpStatus.CREATED);
   };
 
   @PutMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<CategoryResponseDto> updateCategory(@Valid @PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
     return ResponseEntity.ok(categoryService.update(id,categoryRequestDto));
   };

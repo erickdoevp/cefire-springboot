@@ -11,7 +11,9 @@ import com.cefire.cefiretlx.blog.repository.BlogRepository;
 import com.cefire.cefiretlx.blog.specification.BlogSpecification;
 import com.cefire.cefiretlx.category.domain.Category;
 import com.cefire.cefiretlx.category.service.ICategoryService;
+import com.cefire.cefiretlx.shared.exception.ForbiddenException;
 import com.cefire.cefiretlx.shared.exception.ResourceNotFoundException;
+import com.cefire.cefiretlx.shared.util.AuthUtils;
 import com.cefire.cefiretlx.tag.domain.Tag;
 import com.cefire.cefiretlx.tag.service.ITagService;
 import com.cefire.cefiretlx.user.domain.User;
@@ -36,6 +38,7 @@ public class BlogServiceImpl implements IBlogService {
   private final ICategoryService categoryService;
   private final ITagService tagService;
   private final UserRepository userRepository;
+  private final AuthUtils authUtils;
 
   @Override
   @Transactional(readOnly = true)
@@ -43,7 +46,12 @@ public class BlogServiceImpl implements IBlogService {
       String title, BlogStatus status, Long categoryId,
       LocalDateTime updatedFrom, LocalDateTime updatedTo, Pageable pageable) {
 
-    Specification<Blog> spec = BlogSpecification.withFilters(title, status, categoryId, updatedFrom, updatedTo);
+    UUID authorFilter = null;
+    if (authUtils.isOnlyEditor()) {
+      authorFilter = authUtils.getCurrentUser().getId();
+    }
+
+    Specification<Blog> spec = BlogSpecification.withFilters(title, status, categoryId, authorFilter, updatedFrom, updatedTo);
     return blogRepository.findAll(spec, pageable).map(blogMapper::toSummaryResponseDto);
   }
 
@@ -56,8 +64,13 @@ public class BlogServiceImpl implements IBlogService {
 
     Category category = categoryService.findEntityById(dto.getCategoryId());
 
-    User author = userRepository.findById(dto.getAuthorId())
-        .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el id: " + dto.getAuthorId()));
+    User author;
+    if (authUtils.isOnlyEditor()) {
+      author = authUtils.getCurrentUser();
+    } else {
+      author = userRepository.findById(dto.getAuthorId())
+          .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el id: " + dto.getAuthorId()));
+    }
 
     Blog blog = blogMapper.toEntity(dto);
     blog.setCategory(category);
@@ -74,7 +87,14 @@ public class BlogServiceImpl implements IBlogService {
   @Override
   @Transactional(readOnly = true)
   public BlogDetailResponseDto findById(Long id) {
-    return blogMapper.toDetailResponseDto(findEntityById(id));
+    Blog blog = findEntityById(id);
+    if (authUtils.isOnlyEditor()) {
+      User currentUser = authUtils.getCurrentUser();
+      if (!blog.getAuthor().getId().equals(currentUser.getId())) {
+        throw new ForbiddenException("No tienes permiso para ver este blog");
+      }
+    }
+    return blogMapper.toDetailResponseDto(blog);
   }
 
   @Override
@@ -82,6 +102,12 @@ public class BlogServiceImpl implements IBlogService {
   public BlogDetailResponseDto findBySlug(String slug) {
     Blog blog = blogRepository.findBySlug(slug)
         .orElseThrow(() -> new ResourceNotFoundException("Blog no encontrado con el slug: " + slug));
+    if (authUtils.isOnlyEditor()) {
+      User currentUser = authUtils.getCurrentUser();
+      if (!blog.getAuthor().getId().equals(currentUser.getId())) {
+        throw new ForbiddenException("No tienes permiso para ver este blog");
+      }
+    }
     return blogMapper.toDetailResponseDto(blog);
   }
 
@@ -122,6 +148,12 @@ public class BlogServiceImpl implements IBlogService {
   @Override
   @Transactional(readOnly = true)
   public List<BlogDetailResponseDto> findByAuthorId(UUID authorId) {
+    if (authUtils.isOnlyEditor()) {
+      User currentUser = authUtils.getCurrentUser();
+      if (!currentUser.getId().equals(authorId)) {
+        throw new ForbiddenException("Solo puedes ver tus propios blogs");
+      }
+    }
     return blogRepository.findByAuthorId(authorId)
         .stream()
         .map(blogMapper::toDetailResponseDto)
@@ -132,6 +164,13 @@ public class BlogServiceImpl implements IBlogService {
   @Transactional
   public BlogDetailResponseDto update(Long id, BlogUpdateRequestDto dto) {
     Blog blog = findEntityById(id);
+
+    if (authUtils.isOnlyEditor()) {
+      User currentUser = authUtils.getCurrentUser();
+      if (!blog.getAuthor().getId().equals(currentUser.getId())) {
+        throw new ForbiddenException("No tienes permiso para editar este blog");
+      }
+    }
 
     if (dto.getSlug() != null && !dto.getSlug().equals(blog.getSlug()) && blogRepository.existsBySlug(dto.getSlug())) {
       throw new IllegalArgumentException("Ya existe un blog con el slug: " + dto.getSlug());

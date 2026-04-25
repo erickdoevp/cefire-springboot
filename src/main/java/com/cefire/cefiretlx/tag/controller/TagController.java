@@ -21,30 +21,31 @@ public class TagController {
   private final ITagService tagService;
 
   @GetMapping
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<List<TagResponseDto>> getAllTags() {
     return ResponseEntity.ok(tagService.findAll());
   }
 
   @GetMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<TagDetailResponseDto> findTagById(@PathVariable Long id) {
     return ResponseEntity.ok(tagService.findById(id));
   }
 
   @PostMapping
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<TagResponseDto> saveTag(@Valid @RequestBody TagRequestDto tagRequestDto) {
     return new ResponseEntity<>(tagService.save(tagRequestDto), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<TagResponseDto> updateTag(@PathVariable Long id, @Valid @RequestBody TagRequestDto tagRequestDto) {
     return ResponseEntity.ok(tagService.update(id, tagRequestDto));
   }
 
   @DeleteMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN','USER')")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<Void> deleteTag(@PathVariable Long id) {
     tagService.deleteTag(id);
     return ResponseEntity.noContent().build();

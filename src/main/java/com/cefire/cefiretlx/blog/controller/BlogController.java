@@ -29,6 +29,7 @@ public class BlogController {
   private final IBlogService blogService;
 
   @GetMapping
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<Page<BlogSummaryResponseDto>> findAllPaginated(
       @RequestParam(required = false) String title,
       @RequestParam(required = false) BlogStatus status,
@@ -40,43 +41,49 @@ public class BlogController {
   }
 
   @GetMapping("/all")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<List<BlogDetailResponseDto>> findAll() {
     return ResponseEntity.ok(blogService.findAll());
   }
 
   @GetMapping("/{id}")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<BlogDetailResponseDto> findById(@PathVariable Long id) {
     return ResponseEntity.ok(blogService.findById(id));
   }
 
   @GetMapping("/slug/{slug}")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<BlogDetailResponseDto> findBySlug(@PathVariable String slug) {
     return ResponseEntity.ok(blogService.findBySlug(slug));
   }
 
   @GetMapping("/status/{status}")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<List<BlogDetailResponseDto>> findByStatus(@PathVariable BlogStatus status) {
     return ResponseEntity.ok(blogService.findByStatus(status));
   }
 
   @GetMapping("/category/{categoryId}")
+  @PreAuthorize("hasRole('ADMIN')")
   ResponseEntity<List<BlogDetailResponseDto>> findByCategoryId(@PathVariable Long categoryId) {
     return ResponseEntity.ok(blogService.findByCategoryId(categoryId));
   }
 
   @GetMapping("/author/{authorId}")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<List<BlogDetailResponseDto>> findByAuthorId(@PathVariable UUID authorId) {
     return ResponseEntity.ok(blogService.findByAuthorId(authorId));
   }
 
   @PostMapping
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<BlogDetailResponseDto> create(@Valid @RequestBody BlogCreateRequestDto dto) {
     return new ResponseEntity<>(blogService.create(dto), HttpStatus.CREATED);
   }
 
   @PatchMapping("/{id}")
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
   ResponseEntity<BlogDetailResponseDto> update(@PathVariable Long id, @Valid @RequestBody BlogUpdateRequestDto dto) {
     return ResponseEntity.ok(blogService.update(id, dto));
   }
