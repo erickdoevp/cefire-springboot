@@ -1,7 +1,8 @@
-package com.cefire.cefiretlx.blogs.dto;
+package com.cefire.cefiretlx.blog.dto;
 
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
+import com.cefire.cefiretlx.tag.dto.TagResponseDto;
 import com.cefire.cefiretlx.user.dto.UserSummaryResponseDto;
 import lombok.Data;
 
@@ -21,7 +22,7 @@ public class BlogDetailResponseDto {
   private String metaDescription;
   private Integer readingTime;
   private BlogStatus status;
-  private List<String> tags;
+  private List<TagResponseDto> tags;
   private CategoryDetailResponseDto category;
   private UserSummaryResponseDto author;
   private LocalDateTime createdAt;

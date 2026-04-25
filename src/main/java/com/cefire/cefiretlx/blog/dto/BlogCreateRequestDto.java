@@ -1,6 +1,6 @@
-package com.cefire.cefiretlx.blogs.dto;
+package com.cefire.cefiretlx.blog.dto;
 
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +46,6 @@ public class BlogCreateRequestDto {
   @NotNull(message = "El autor no debe ser nulo.")
   private UUID authorId;
 
-  private List<String> tags;
+  private List<Long> tagIds;
 
 }

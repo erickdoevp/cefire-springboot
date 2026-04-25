@@ -1,7 +1,7 @@
-package com.cefire.cefiretlx.blogs.specification;
+package com.cefire.cefiretlx.blog.specification;
 
-import com.cefire.cefiretlx.blogs.domain.Blog;
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.Blog;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 

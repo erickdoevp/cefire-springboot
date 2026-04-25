@@ -1,6 +1,6 @@
-package com.cefire.cefiretlx.blogs.dto;
+package com.cefire.cefiretlx.blog.dto;
 
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
 
@@ -22,6 +22,6 @@ public class BlogUpdateRequestDto {
 
   private BlogStatus status;
   private Long categoryId;
-  private List<String> tags;
+  private List<Long> tagIds;
 
 }

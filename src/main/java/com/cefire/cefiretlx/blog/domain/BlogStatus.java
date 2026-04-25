@@ -1,4 +1,4 @@
-package com.cefire.cefiretlx.blogs.domain;
+package com.cefire.cefiretlx.blog.domain;
 
 public enum BlogStatus {
   PUBLISHED,

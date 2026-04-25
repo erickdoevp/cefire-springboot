@@ -1,7 +1,7 @@
-package com.cefire.cefiretlx.blogs.repository;
+package com.cefire.cefiretlx.blog.repository;
 
-import com.cefire.cefiretlx.blogs.domain.Blog;
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.Blog;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

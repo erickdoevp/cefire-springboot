@@ -1,17 +1,19 @@
-package com.cefire.cefiretlx.blogs.service;
+package com.cefire.cefiretlx.blog.service;
 
-import com.cefire.cefiretlx.blogs.domain.Blog;
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
-import com.cefire.cefiretlx.blogs.dto.BlogCreateRequestDto;
-import com.cefire.cefiretlx.blogs.dto.BlogDetailResponseDto;
-import com.cefire.cefiretlx.blogs.dto.BlogSummaryResponseDto;
-import com.cefire.cefiretlx.blogs.dto.BlogUpdateRequestDto;
-import com.cefire.cefiretlx.blogs.mapper.BlogMapper;
-import com.cefire.cefiretlx.blogs.repository.BlogRepository;
-import com.cefire.cefiretlx.blogs.specification.BlogSpecification;
+import com.cefire.cefiretlx.blog.domain.Blog;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.dto.BlogCreateRequestDto;
+import com.cefire.cefiretlx.blog.dto.BlogDetailResponseDto;
+import com.cefire.cefiretlx.blog.dto.BlogSummaryResponseDto;
+import com.cefire.cefiretlx.blog.dto.BlogUpdateRequestDto;
+import com.cefire.cefiretlx.blog.mapper.BlogMapper;
+import com.cefire.cefiretlx.blog.repository.BlogRepository;
+import com.cefire.cefiretlx.blog.specification.BlogSpecification;
 import com.cefire.cefiretlx.category.domain.Category;
 import com.cefire.cefiretlx.category.service.ICategoryService;
 import com.cefire.cefiretlx.shared.exception.ResourceNotFoundException;
+import com.cefire.cefiretlx.tag.domain.Tag;
+import com.cefire.cefiretlx.tag.service.ITagService;
 import com.cefire.cefiretlx.user.domain.User;
 import com.cefire.cefiretlx.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,7 @@ public class BlogServiceImpl implements IBlogService {
   private final BlogRepository blogRepository;
   private final BlogMapper blogMapper;
   private final ICategoryService categoryService;
+  private final ITagService tagService;
   private final UserRepository userRepository;
 
   @Override
@@ -52,12 +55,18 @@ public class BlogServiceImpl implements IBlogService {
     }
 
     Category category = categoryService.findEntityById(dto.getCategoryId());
+
     User author = userRepository.findById(dto.getAuthorId())
         .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con el id: " + dto.getAuthorId()));
 
     Blog blog = blogMapper.toEntity(dto);
     blog.setCategory(category);
     blog.setAuthor(author);
+
+    if (dto.getTagIds() != null && !dto.getTagIds().isEmpty()) {
+      List<Tag> tags = dto.getTagIds().stream().map(tagService::findEntityById).toList();
+      blog.setTags(tags);
+    }
 
     return blogMapper.toDetailResponseDto(blogRepository.save(blog));
   }
@@ -130,6 +139,11 @@ public class BlogServiceImpl implements IBlogService {
 
     if (dto.getCategoryId() != null) {
       blog.setCategory(categoryService.findEntityById(dto.getCategoryId()));
+    }
+
+    if (dto.getTagIds() != null) {
+      List<Tag> tags = dto.getTagIds().stream().map(tagService::findEntityById).toList();
+      blog.setTags(tags);
     }
 
     blogMapper.updateBlogFromDto(dto, blog);

@@ -1,6 +1,7 @@
-package com.cefire.cefiretlx.blogs.domain;
+package com.cefire.cefiretlx.blog.domain;
 
 import com.cefire.cefiretlx.category.domain.Category;
+import com.cefire.cefiretlx.tag.domain.Tag;
 import com.cefire.cefiretlx.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -53,10 +54,13 @@ public class Blog {
   @Column(nullable = false)
   private BlogStatus status;
 
-  @ElementCollection
-  @CollectionTable(name = "blog_tags", joinColumns = @JoinColumn(name = "blog_id"))
-  @Column(name = "tag")
-  private List<String> tags;
+  @ManyToMany
+  @JoinTable(
+      name = "blog_tags",
+      joinColumns = @JoinColumn(name = "blog_id"),
+      inverseJoinColumns = @JoinColumn(name = "tag_id")
+  )
+  private List<Tag> tags;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", nullable = false)

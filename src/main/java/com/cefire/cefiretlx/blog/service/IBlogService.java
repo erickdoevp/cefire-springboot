@@ -1,11 +1,11 @@
-package com.cefire.cefiretlx.blogs.service;
+package com.cefire.cefiretlx.blog.service;
 
-import com.cefire.cefiretlx.blogs.domain.Blog;
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
-import com.cefire.cefiretlx.blogs.dto.BlogCreateRequestDto;
-import com.cefire.cefiretlx.blogs.dto.BlogDetailResponseDto;
-import com.cefire.cefiretlx.blogs.dto.BlogSummaryResponseDto;
-import com.cefire.cefiretlx.blogs.dto.BlogUpdateRequestDto;
+import com.cefire.cefiretlx.blog.domain.Blog;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.dto.BlogCreateRequestDto;
+import com.cefire.cefiretlx.blog.dto.BlogDetailResponseDto;
+import com.cefire.cefiretlx.blog.dto.BlogSummaryResponseDto;
+import com.cefire.cefiretlx.blog.dto.BlogUpdateRequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

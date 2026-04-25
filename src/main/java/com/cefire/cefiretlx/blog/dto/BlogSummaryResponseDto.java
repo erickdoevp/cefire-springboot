@@ -1,6 +1,6 @@
-package com.cefire.cefiretlx.blogs.dto;
+package com.cefire.cefiretlx.blog.dto;
 
-import com.cefire.cefiretlx.blogs.domain.BlogStatus;
+import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import com.cefire.cefiretlx.category.dto.CategoryResponseDto;
 import lombok.Data;
 
