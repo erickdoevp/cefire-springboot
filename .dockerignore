@@ -1,0 +1,21 @@
+# Git
+.git
+.gitignore
+
+# macOS metadata
+._*
+**/._*
+.DS_Store
+**/.DS_Store
+
+# Maven build output
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Environment
+.env
+*.env
