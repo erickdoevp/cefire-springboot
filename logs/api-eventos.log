@@ -1,0 +1,44 @@
+2026-04-25 19:21:11.856 INFO  c.c.cefiretlx.CefiretlxApplication - Starting CefiretlxApplication using Java 21.0.8 with PID 2406 (/Volumes/Kroev/Springboot/cefiretlx_2/target/classes started by ericko in /Volumes/Kroev/Springboot/cefiretlx_2)
+2026-04-25 19:21:11.857 INFO  c.c.cefiretlx.CefiretlxApplication - The following 1 profile is active: "dev"
+2026-04-25 19:21:12.039 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-25 19:21:12.229 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-25 19:21:12.284 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 5 JPA repository interfaces.
+2026-04-25 19:21:12.561 INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-25 19:21:12.566 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-25 19:21:12.568 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-25 19:21:12.568 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-25 19:21:12.591 INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 714 ms
+2026-04-25 19:21:12.678 INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-25 19:21:12.711 INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-04-25 19:21:12.889 INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-25 19:21:12.904 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-25 19:21:14.605 INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4687366b
+2026-04-25 19:21:14.607 INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-25 19:21:15.445 INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-icy-rice-an81gr05-pooler.c-6.us-east-1.aws.neon.tech/cefiretlx?sslmode=require&channelBinding=require]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: cefiretlx/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-25 19:21:15.895 INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-25 19:21:17.279 INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-25 19:21:17.368 INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-25 19:21:17.664 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name IUserDetailServiceImpl
+2026-04-25 19:21:17.748 WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-25 19:21:18.125 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-25 19:21:18.132 INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-25 19:21:18.135 INFO  c.c.cefiretlx.CefiretlxApplication - Started CefiretlxApplication in 6.499 seconds (process running for 6.665)
+2026-04-25 19:21:19.835 WARN  o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-04-25 19:21:19.836 WARN  o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-04-25 19:22:32.160 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-25 19:22:32.163 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-25 19:22:32.169 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2026-04-25 19:22:32.838 INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 315 ms
+2026-04-25 19:26:46.246 INFO  c.c.c.c.service.CategoryServiceImpl - Creando categoría con nombre='Dolor de Espalda'
+2026-04-25 19:26:46.508 INFO  c.c.c.c.service.CategoryServiceImpl - Categoría creada exitosamente con id=1

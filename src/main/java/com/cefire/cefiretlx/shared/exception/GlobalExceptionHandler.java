@@ -3,6 +3,9 @@ package com.cefire.cefiretlx.shared.exception;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,6 +58,54 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
 
   };
+
+  @ExceptionHandler(BadCredentialsException.class)
+  public ResponseEntity<Object> handleBadCredentialsException(BadCredentialsException ex) {
+
+    Map<String, Object> body = new HashMap<>();
+    body.put("status", HttpStatus.UNAUTHORIZED.value());
+    body.put("error", "Unauthorized");
+    body.put("message", "Credenciales inválidas. Verifica tu usuario y contraseña.");
+
+    return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+
+  }
+
+  @ExceptionHandler(LockedException.class)
+  public ResponseEntity<Object> handleLockedException(LockedException ex) {
+
+    Map<String, Object> body = new HashMap<>();
+    body.put("status", HttpStatus.UNAUTHORIZED.value());
+    body.put("error", "Unauthorized");
+    body.put("message", "La cuenta está bloqueada. Contacta al administrador.");
+
+    return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+
+  }
+
+  @ExceptionHandler(DisabledException.class)
+  public ResponseEntity<Object> handleDisabledException(DisabledException ex) {
+
+    Map<String, Object> body = new HashMap<>();
+    body.put("status", HttpStatus.UNAUTHORIZED.value());
+    body.put("error", "Unauthorized");
+    body.put("message", "La cuenta está deshabilitada. Contacta al administrador.");
+
+    return new ResponseEntity<>(body, HttpStatus.UNAUTHORIZED);
+
+  }
+
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+
+    Map<String, Object> body = new HashMap<>();
+    body.put("status", HttpStatus.BAD_REQUEST.value());
+    body.put("error", "Bad Request");
+    body.put("message", ex.getMessage());
+
+    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+
+  }
 
   // Versión súper simple para producción sin detalles específicos de la DB
   @ExceptionHandler(DataIntegrityViolationException.class)

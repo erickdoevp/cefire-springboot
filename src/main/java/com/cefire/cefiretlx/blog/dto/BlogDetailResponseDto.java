@@ -4,6 +4,7 @@ import com.cefire.cefiretlx.blog.domain.BlogStatus;
 import com.cefire.cefiretlx.category.dto.CategoryDetailResponseDto;
 import com.cefire.cefiretlx.tag.dto.TagResponseDto;
 import com.cefire.cefiretlx.user.dto.UserSummaryResponseDto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,7 @@
 package com.cefire.cefiretlx.blog.dto;
 
 import com.cefire.cefiretlx.blog.domain.BlogStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,8 +11,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Schema(description = "Detalles de la solicitud para crear/actualizar un blog")
 public class BlogCreateRequestDto {
 
+  @Schema(description = "Título del Blog", example = "5 Ejercicios para realizar por la mañana")
   @NotBlank(message = "El título no debe estar vacío.")
   private String title;
 
